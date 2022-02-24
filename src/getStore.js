@@ -5,6 +5,7 @@ import createSagaMiddleware from "@redux-saga/core";
 import { compose, createStore, applyMiddleware } from "redux";
 
 import { getQuery } from "./utility";
+import { initSagas } from "./initSagas";
 import { reducer } from "./combineReducers";
 import { defaultState } from "./defaultState";
 
@@ -31,6 +32,8 @@ export const getStore = () => {
   const composables = [applyMiddleware(...middleWares)];
   const enhancer = compose(...composables);
   const store = createStore(reducer, defaultState, enhancer);
+
+  initSagas(sagaMiddleware);
 
   return store;
 };
