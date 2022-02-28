@@ -1,5 +1,6 @@
 export { taxRateSaga } from './taxRateSaga';
 export { shippingSaga } from './shippingSaga';
+export { checkoutSaga } from './checkoutSaga';
 export { fetchCartSaga } from './fetchCartSaga';
 export { itemPriceSaga } from './itemPriceSaga';
 export { currentUserSaga } from './currentUserSaga';
