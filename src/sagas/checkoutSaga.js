@@ -2,13 +2,9 @@ import fetch from 'isomorphic-fetch';
 import { take, call, put, select, apply } from 'redux-saga/effects';
 
 import {
+  CHECKOUT_PHASE,
   setCheckoutPhase,
   TOGGLE_CHECKING_OUT,
-  ERROR_CHECKOUT_PHASE,
-  SUCCESS_CHECKOUT_PHASE,
-  CREDIT_VALIDATION_CHECKOUT_PHASE,
-  PURCHASE_FINALIZATION_CHECKOUT_PHASE,
-  QUANTITY_VERIFICATION_CHECKOUT_PHASE,
 } from '../actions';
 import { currentUserSelector } from '../selectors';
 import { SERVER_BASE_URL } from '../../server/constants';
@@ -27,31 +23,31 @@ export function* checkout() {
   const user = yield select(currentUserSelector);
   const userId = user.get('id');
 
-  yield put(setCheckoutPhase(QUANTITY_VERIFICATION_CHECKOUT_PHASE));
+  yield put(setCheckoutPhase(CHECKOUT_PHASE.QUANTITY_VERIFICATION));
   const isCartValid = yield call(validateCart, userId);
 
   if (!isCartValid) {
-    yield put(setCheckoutPhase(ERROR_CHECKOUT_PHASE));
+    yield put(setCheckoutPhase(CHECKOUT_PHASE.ERROR));
     return;
   }
 
-  yield put(setCheckoutPhase(CREDIT_VALIDATION_CHECKOUT_PHASE));
+  yield put(setCheckoutPhase(CHECKOUT_PHASE.CREDIT_VALIDATION));
   const isCreditCardValid = yield call(validateCreditCard, userId);
 
   if (!isCreditCardValid) {
-    yield put(setCheckoutPhase(ERROR_CHECKOUT_PHASE));
+    yield put(setCheckoutPhase(CHECKOUT_PHASE.ERROR));
     return;
   }
 
-  yield put(setCheckoutPhase(PURCHASE_FINALIZATION_CHECKOUT_PHASE));
+  yield put(setCheckoutPhase(CHECKOUT_PHASE.PURCHASE_FINALIZATION));
   const isPurchaseSuccessful = yield call(executePurchase, userId);
 
   if (!isPurchaseSuccessful) {
-    yield put(setCheckoutPhase(ERROR_CHECKOUT_PHASE));
+    yield put(setCheckoutPhase(CHECKOUT_PHASE.ERROR));
     return;
   }
 
-  yield put(setCheckoutPhase(SUCCESS_CHECKOUT_PHASE));
+  yield put(setCheckoutPhase(CHECKOUT_PHASE.SUCCESS));
 }
 
 export function* validateCart(userId) {
