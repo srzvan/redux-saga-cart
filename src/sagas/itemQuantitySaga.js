@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { put, all, call, apply, select, takeLatest } from 'redux-saga/effects';
+import { put, all, call, select, takeLatest } from 'redux-saga/effects';
 
 import {
   FETCHED,
