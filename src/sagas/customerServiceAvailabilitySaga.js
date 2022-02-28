@@ -1,8 +1,8 @@
 import { eventChannel } from 'redux-saga';
 import { take, put } from 'redux-saga/effects';
-import { setCustomerServiceAvailability } from '../actions';
 
 import { connect } from '../createSocketConnection';
+import { setCustomerServiceAvailability } from '../actions';
 
 export function* customerServiceAvailabilitySaga() {
   const socket = connect();

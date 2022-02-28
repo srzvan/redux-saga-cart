@@ -1,3 +1,4 @@
+export { shippingSaga } from './shippingSaga';
 export { fetchCartSaga } from './fetchCartSaga';
 export { itemPriceSaga } from './itemPriceSaga';
 export { currentUserSaga } from './currentUserSaga';
