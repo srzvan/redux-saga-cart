@@ -1,3 +1,4 @@
+export { taxRateSaga } from './taxRateSaga';
 export { shippingSaga } from './shippingSaga';
 export { fetchCartSaga } from './fetchCartSaga';
 export { itemPriceSaga } from './itemPriceSaga';
